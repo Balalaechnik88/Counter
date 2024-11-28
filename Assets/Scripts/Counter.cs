@@ -1,13 +1,14 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Counter : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI _value;
     private int _initialValue = 0;
-    private string _text = string.Empty;
+    private float _waitTime = 0.5f;
     private bool isCounting = false;
+
 
     private void Update()
     {
@@ -31,8 +32,12 @@ public class Counter : MonoBehaviour
         while (isCounting)
         {
             _initialValue++;
-            _value.text = _text + _initialValue;  
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(_waitTime);
         }
+    }
+
+    public int GetValue()
+    {
+        return _initialValue;
     }
 }
