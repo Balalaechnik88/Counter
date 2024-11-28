@@ -9,7 +9,6 @@ public class Counter : MonoBehaviour
     private float _waitTime = 0.5f;
     private bool isCounting = false;
 
-
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
