@@ -10,6 +10,6 @@ public class CounterView : MonoBehaviour
 
     private void Update()
     {
-        _value.text = _text + _counter.GetValue();
+        _value.text = _text + _counter.InitialValue;
     }
 }

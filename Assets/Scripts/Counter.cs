@@ -3,38 +3,36 @@ using UnityEngine;
 
 public class Counter : MonoBehaviour
 {
-    private int _initialValue = 0;
-    private float _waitTime = 0.5f;
-    private bool isCounting = false;
+    private WaitForSeconds _waitTime = new WaitForSeconds(0.5f);
+    private Coroutine _valueCoroutine;
+    private bool _isCounting = false;
+
+    public int InitialValue { get; private set; }
 
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            isCounting = !isCounting;
-
-            if (isCounting)
+            if (_valueCoroutine == null)
             {
-                StartCoroutine(UpdateValue());
+                _isCounting = true;
+                _valueCoroutine = StartCoroutine(UpdateValue());
             }
             else
             {
-                StopCoroutine(UpdateValue());
+                StopCoroutine(_valueCoroutine);
+                _valueCoroutine = null;
+                _isCounting = false;
             }
         }
     }
 
     private IEnumerator UpdateValue()
     {
-        while (isCounting)
+        while (_isCounting)
         {
-            _initialValue++;
-            yield return new WaitForSeconds(_waitTime);
+            InitialValue++;
+            yield return _waitTime;
         }
-    }
-
-    public int GetValue()
-    {
-        return _initialValue;
     }
 }
